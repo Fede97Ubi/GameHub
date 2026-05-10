@@ -8,7 +8,7 @@ const getColumnsFromWidth = (width) => {
   return 1;                    // Mobile
 };
 
-export const GameGridFull = ({ games }) => {
+export const GameGridFull = ({ games, onGameSelect }) => {
   const parentRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
   const [columns, setColumns] = useState(1);
@@ -81,7 +81,7 @@ export const GameGridFull = ({ games }) => {
                   willChange: 'transform',
                 }}
               >
-                <GameCardFull game={game} />
+                <GameCardFull game={game} onSelect={onGameSelect} />
               </div>
             );
           });

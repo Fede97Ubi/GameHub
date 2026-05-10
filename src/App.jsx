@@ -6,9 +6,11 @@ import { useGames } from './hooks/useGames';
 import { GameCardSkeleton } from './components/ui/GameCardSkeleton';
 import { GameGridSmart } from './components/grid/GameGridSmart';
 import { GameGridFull } from './components/grid/GameGridFull';
+import { GameDetail } from './components/layout/GameDetail';
 
 function App() {
   const { data: games, isLoading, error } = useGames();
+  const [selectedGame, setSelectedGame] = useState(null);
   
   // Inizializza lo stato leggendo dal localStorage (default 'smart')
   const [viewMode, setViewMode] = useState(() => {
@@ -32,6 +34,9 @@ function App() {
           </div>
         )}
 
+        {/* Backdrop sfocato sulla griglia principale quando un gioco è selezionato */}
+        <div className={`absolute inset-0 transition-all duration-500 pointer-events-none z-10 ${selectedGame ? 'backdrop-blur-sm bg-black/40' : 'backdrop-blur-none bg-transparent'}`} />
+
         {isLoading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 overflow-hidden z-10">
             {Array.from({ length: 12 }).map((_, index) => (
@@ -50,7 +55,7 @@ function App() {
                   transition={{ duration: 0.2 }}
                   className="absolute inset-0"
                 >
-                  <GameGridSmart games={games} />
+                  <GameGridSmart games={games} onGameSelect={setSelectedGame} />
                 </motion.div>
               ) : (
                 <motion.div 
@@ -61,12 +66,22 @@ function App() {
                   transition={{ duration: 0.2 }}
                   className="absolute inset-0"
                 >
-                  <GameGridFull games={games} />
+                  <GameGridFull games={games} onGameSelect={setSelectedGame} />
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
         )}
+
+        <AnimatePresence>
+          {selectedGame && (
+            <GameDetail 
+              key="detail" 
+              game={selectedGame} 
+              onClose={() => setSelectedGame(null)} 
+            />
+          )}
+        </AnimatePresence>
       </div>
     </Layout>
   );

@@ -11,7 +11,7 @@ const getColumnsFromWidth = (width) => {
   return 2;
 };
 
-export const GameGridSmart = ({ games }) => {
+export const GameGridSmart = ({ games, onGameSelect }) => {
   const parentRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
   const [columns, setColumns] = useState(2);
@@ -53,7 +53,7 @@ export const GameGridSmart = ({ games }) => {
   return (
     <div 
       ref={parentRef} 
-      className="w-full h-full overflow-y-auto overflow-x-hidden"
+      className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
       style={{ contain: 'strict' }}
     >
       <div
@@ -84,7 +84,7 @@ export const GameGridSmart = ({ games }) => {
                   willChange: 'transform', // Ottimizzazione per GPU
                 }}
               >
-                <GameCard game={game} />
+                <GameCard game={game} onSelect={onGameSelect} />
               </div>
             );
           });

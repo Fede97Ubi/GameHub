@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-export const GameCard = React.memo(({ game }) => {
+export const GameCard = React.memo(({ game, onSelect }) => {
   const [isHovered, setIsHovered] = useState(false);
   const hoverTimeoutRef = useRef(null);
   const [showVideo, setShowVideo] = useState(false);
@@ -39,10 +39,12 @@ export const GameCard = React.memo(({ game }) => {
       transition={{ duration: 0.2 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => onSelect && onSelect(game)}
       className="w-full h-full rounded-xl overflow-hidden cursor-pointer relative bg-zinc-900 border border-white/5 shadow-xl origin-center group"
     >
-      {/* Immagine di Copertina */}
-      <img
+      {/* Immagine di Copertina (Animazione Condivisa) */}
+      <motion.img
+        layoutId={`cover-${game.id}`}
         src={game.coverUrl}
         alt={game.title}
         loading="lazy"

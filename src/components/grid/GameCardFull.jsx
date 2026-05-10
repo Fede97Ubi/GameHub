@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-export const GameCardFull = React.memo(({ game }) => {
+export const GameCardFull = React.memo(({ game, onSelect }) => {
   const [isHovered, setIsHovered] = useState(false);
   const hoverTimeoutRef = useRef(null);
   const [showVideo, setShowVideo] = useState(false);
@@ -37,11 +37,13 @@ export const GameCardFull = React.memo(({ game }) => {
       transition={{ duration: 0.3 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => onSelect && onSelect(game)}
       className="w-full h-full rounded-2xl overflow-hidden cursor-pointer relative bg-zinc-900 border border-white/10 flex flex-col group"
     >
       {/* Contenitore Media */}
       <div className="relative w-full h-3/4 overflow-hidden">
         <motion.img
+          layoutId={`cover-${game.id}`}
           src={game.coverUrl}
           alt={game.title}
           loading="lazy"
