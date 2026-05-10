@@ -2,8 +2,8 @@
   {
     "id": "game-001",
     "title": "Elden Ring",
-    "coverUrl": "/assets/covers/elden-ring.webp",
-    "videoUrl": "/assets/videos/elden-ring.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Un'epica avventura fantasy in un vasto mondo aperto pieno di misteri e pericoli. Creato da Hidetaka Miyazaki in collaborazione con George R. R. Martin.",
     "rating": 5,
     "tags": ["Action", "RPG", "Fantasy"]
@@ -11,8 +11,8 @@
   {
     "id": "game-002",
     "title": "Cyberpunk 2077",
-    "coverUrl": "/assets/covers/cyberpunk-2077.webp",
-    "videoUrl": "/assets/videos/cyberpunk-2077.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Un'avventura a mondo aperto ambientata a Night City, una megalopoli ossessionata dal potere, dalla moda e dalle modifiche cibernetiche.",
     "rating": 4.5,
     "tags": ["RPG", "Sci-Fi", "FPS"]
@@ -20,8 +20,8 @@
   {
     "id": "game-003",
     "title": "Hollow Knight",
-    "coverUrl": "/assets/covers/hollow-knight.webp",
-    "videoUrl": "/assets/videos/hollow-knight.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Forgia la tua strada in un regno in rovina di insetti ed eroi, esplorando caverne tortuose e combattendo creature corrotte.",
     "rating": 5,
     "tags": ["Metroidvania", "Platform", "Indie"]
@@ -29,8 +29,8 @@
   {
     "id": "game-004",
     "title": "The Witcher 3: Wild Hunt",
-    "coverUrl": "/assets/covers/witcher-3.webp",
-    "videoUrl": "/assets/videos/witcher-3.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Sei Geralt di Rivia, un cacciatore di mostri mercenario, alla ricerca della Figlia della Profezia in un mondo moralmente ambiguo.",
     "rating": 5,
     "tags": ["Action", "RPG", "Fantasy"]
@@ -38,8 +38,8 @@
   {
     "id": "game-005",
     "title": "Red Dead Redemption 2",
-    "coverUrl": "/assets/covers/rdr2.webp",
-    "videoUrl": "/assets/videos/rdr2.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "La fine dell'era del selvaggio West è iniziata. Un'avventura epica sulla vita spietata nel cuore dell'America all'alba del nuovo secolo.",
     "rating": 5,
     "tags": ["Action", "Open World", "Western"]
@@ -47,8 +47,8 @@
   {
     "id": "game-006",
     "title": "God of War Ragnarök",
-    "coverUrl": "/assets/covers/gow-ragnarok.webp",
-    "videoUrl": "/assets/videos/gow-ragnarok.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Kratos e Atreus devono viaggiare in ciascuno dei Nove Regni alla ricerca di risposte, mentre le forze di Asgard si preparano alla guerra profetizzata.",
     "rating": 4.8,
     "tags": ["Action", "Adventure", "Mythology"]
@@ -56,8 +56,8 @@
   {
     "id": "game-007",
     "title": "Hades",
-    "coverUrl": "/assets/covers/hades.webp",
-    "videoUrl": "/assets/videos/hades.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Sconfiggi il dio dei morti e fuggi dagli Inferi in questo dungeon crawler rogue-like dai creatori di Bastion e Transistor.",
     "rating": 4.9,
     "tags": ["Roguelike", "Action", "Indie"]
@@ -65,8 +65,8 @@
   {
     "id": "game-008",
     "title": "Doom Eternal",
-    "coverUrl": "/assets/covers/doom-eternal.webp",
-    "videoUrl": "/assets/videos/doom-eternal.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Gli eserciti dell'Inferno hanno invaso la Terra. Diventa lo Slayer in un'epica campagna per giocatore singolo e distruggi i demoni.",
     "rating": 4.7,
     "tags": ["FPS", "Action", "Gore"]
@@ -74,8 +74,8 @@
   {
     "id": "game-009",
     "title": "Persona 5 Royal",
-    "coverUrl": "/assets/covers/persona-5.webp",
-    "videoUrl": "/assets/videos/persona-5.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Indossa la maschera di Joker e unisciti ai Ladri Fantasma di Cuori per cambiare la società corrompendo le menti degli adulti malvagi.",
     "rating": 4.9,
     "tags": ["JRPG", "Turn-Based", "Anime"]
@@ -83,8 +83,8 @@
   {
     "id": "game-010",
     "title": "Sekiro: Shadows Die Twice",
-    "coverUrl": "/assets/covers/sekiro.webp",
-    "videoUrl": "/assets/videos/sekiro.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Vendicati. Riprendi il tuo onore. Uccidi con ingegno. In Sekiro vesti i panni del 'lupo con un braccio solo', un guerriero sfregiato e caduto in disgrazia.",
     "rating": 4.8,
     "tags": ["Action", "Stealth", "Ninja"]
@@ -92,8 +92,8 @@
   {
     "id": "game-011",
     "title": "Celeste",
-    "coverUrl": "/assets/covers/celeste.webp",
-    "videoUrl": "/assets/videos/celeste.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Aiuta Madeline a sopravvivere ai suoi demoni interiori nel suo viaggio verso la cima del Monte Celeste in questo platform affilato.",
     "rating": 4.8,
     "tags": ["Platform", "Indie", "Story Rich"]
@@ -101,8 +101,8 @@
   {
     "id": "game-012",
     "title": "Death Stranding",
-    "coverUrl": "/assets/covers/death-stranding.webp",
-    "videoUrl": "/assets/videos/death-stranding.mp4",
+    "coverUrl": "/assets/covers/cod.webp",
+    "videoUrl": "/assets/videos/cod.mp4",
     "description": "Affronta un mondo completamente trasformato dal Death Stranding. Porta i resti frammentati del nostro futuro per ricollegare un mondo distrutto.",
     "rating": 4.4,
     "tags": ["Action", "Sci-Fi", "Walking Simulator"]
