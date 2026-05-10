@@ -1,20 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { GameCard } from './GameCard';
+import { GameCardFull } from './GameCardFull';
 
-// Ora calcoliamo le colonne in base alla larghezza REALE del contenitore
 const getColumnsFromWidth = (width) => {
-  if (width >= 1200) return 6;
-  if (width >= 900) return 5;
-  if (width >= 700) return 4;
-  if (width >= 500) return 3;
-  return 2;
+  if (width >= 1280) return 3; // Desktop largo
+  if (width >= 768) return 2;  // Tablet
+  return 1;                    // Mobile
 };
 
-export const GameGrid = ({ games }) => {
+export const GameGridFull = ({ games }) => {
   const parentRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [columns, setColumns] = useState(2);
+  const [columns, setColumns] = useState(1);
 
   useEffect(() => {
     if (!parentRef.current) return;
@@ -29,17 +26,17 @@ export const GameGrid = ({ games }) => {
     return () => observer.disconnect();
   }, []);
 
-  // Aumentiamo leggermente il gap a 24px per dare più respiro
-  const gap = 24; 
-  // Padding laterale per non far toccare i bordi alle card quando scalano in hover
-  const sidePadding = 12; 
+  const gap = 32; 
+  const sidePadding = 16; 
   
   const availableWidth = containerWidth - (sidePadding * 2);
   const cardWidth = availableWidth > 0 
     ? (availableWidth - (gap * (columns - 1))) / columns 
     : 0;
     
-  const cardHeight = cardWidth * 1.5; 
+  // Proporzione più "cinematografica" (es. 1:1 o 4:3 globale)
+  // Sapendo che h-3/4 è media e h-1/4 è testo
+  const cardHeight = cardWidth * 0.9; 
 
   const rowCount = Math.ceil(games.length / columns);
 
@@ -47,13 +44,13 @@ export const GameGrid = ({ games }) => {
     count: rowCount,
     getScrollElement: () => parentRef.current,
     estimateSize: () => cardHeight + gap,
-    overscan: 5,
+    overscan: 3,
   });
 
   return (
     <div 
       ref={parentRef} 
-      className="w-full h-full overflow-y-auto overflow-x-hidden"
+      className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
       style={{ contain: 'strict' }}
     >
       <div
@@ -81,10 +78,10 @@ export const GameGrid = ({ games }) => {
                   width: `${cardWidth}px`,
                   height: `${cardHeight}px`,
                   transform: `translate(${x}px, ${y}px)`,
-                  willChange: 'transform', // Ottimizzazione per GPU
+                  willChange: 'transform',
                 }}
               >
-                <GameCard game={game} />
+                <GameCardFull game={game} />
               </div>
             );
           });
