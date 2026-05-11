@@ -177,9 +177,24 @@ export const GameDetail = ({ game, onClose }) => {
           className="absolute flex flex-col p-6 sm:p-10 overflow-y-auto custom-scrollbar z-10"
         >
           <div className="w-full h-full min-w-[300px]">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight">
-              {game.title}
-            </h2>
+            {/* Titolo con Logo a sinistra */}
+            <div className="flex items-center gap-6 mb-8">
+              <div className="flex-shrink-0 h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center overflow-hidden">
+                {game.logoUrl ? (
+                  <img 
+                    src={game.logoUrl} 
+                    alt="" 
+                    className="w-full h-full object-contain p-1"
+                    onError={(e) => e.target.style.display = 'none'}
+                  />
+                ) : (
+                  <div className="text-zinc-600 text-[10px] uppercase font-bold">Logo</div>
+                )}
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight">
+                {game.title}
+              </h2>
+            </div>
             
             <div className="flex items-center gap-4 mb-6">
               <div className="flex items-center gap-1 text-yellow-500 bg-yellow-500/10 px-3 py-1.5 rounded-full">
@@ -187,7 +202,7 @@ export const GameDetail = ({ game, onClose }) => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
               </div>
               <span className="text-zinc-400 font-medium border border-zinc-700 px-3 py-1.5 rounded-full text-sm">
-                2023
+                {game.year || '2023'}
               </span>
             </div>
 
@@ -200,15 +215,26 @@ export const GameDetail = ({ game, onClose }) => {
             </div>
 
             <div className="prose prose-invert max-w-none mb-8">
-              <p className="text-base text-zinc-300 leading-relaxed">
+              <p className="text-base text-zinc-300 leading-relaxed whitespace-pre-line">
                 {game.description}
               </p>
             </div>
             
             <div className="mt-auto pt-4">
-              <button className="w-full py-3.5 bg-white text-black font-bold rounded-xl text-lg hover:bg-zinc-200 transition-transform active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-                Gioca Ora
-              </button>
+              {game.steamUrl ? (
+                <a 
+                  href={game.steamUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block w-full py-3.5 bg-white text-black text-center font-bold rounded-xl text-lg hover:bg-zinc-200 transition-transform active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                >
+                  Gioca Ora
+                </a>
+              ) : (
+                <button className="w-full py-3.5 bg-white text-black font-bold rounded-xl text-lg hover:bg-zinc-200 transition-transform active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                  Gioca Ora
+                </button>
+              )}
             </div>
           </div>
         </motion.div>
