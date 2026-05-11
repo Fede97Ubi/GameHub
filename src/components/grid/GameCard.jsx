@@ -35,7 +35,7 @@ export const GameCard = React.memo(({ game, onSelect }) => {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ scale: 1.05, zIndex: 50 }}
+      whileHover={{ scale: 1.10, zIndex: 50 }}
       transition={{ duration: 0.2 }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -61,7 +61,7 @@ export const GameCard = React.memo(({ game, onSelect }) => {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover scale-[1.001]"
         />
       )}
 
@@ -73,7 +73,7 @@ export const GameCard = React.memo(({ game, onSelect }) => {
       >
         <h3 className="text-white font-bold text-sm lg:text-base truncate drop-shadow-md">{game.title}</h3>
         <div className="flex gap-1 mt-1 flex-wrap">
-          {game.tags.slice(0, 2).map((tag, i) => (
+          {game.tags.slice(0, 5).map((tag, i) => (
             <span key={i} className="text-[10px] px-1.5 py-0.5 bg-white/20 rounded-sm backdrop-blur-sm">
               {tag}
             </span>

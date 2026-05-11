@@ -150,7 +150,7 @@ export const GameDetail = ({ game, onClose }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: videoLoaded ? 1 : 0 }}
             exit={{ opacity: 0, transition: { duration: 0.1 } }} 
-            className="absolute inset-0 w-full h-full object-cover z-10"
+            className="absolute inset-0 w-full h-full object-cover z-10 scale-[1.01]"
           />
 
           <button

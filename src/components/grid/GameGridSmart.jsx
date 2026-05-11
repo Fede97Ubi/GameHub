@@ -54,7 +54,12 @@ export const GameGridSmart = ({ games, onGameSelect }) => {
     <div 
       ref={parentRef} 
       className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-      style={{ contain: 'strict' }}
+      style={{ 
+        marginTop: '-100px', 
+        paddingTop: '100px',
+        // Assicuriamoci che lo scrollbar inizi dal punto giusto visivamente
+        maskImage: 'linear-gradient(to bottom, transparent 100px, black 100px)'
+      }}
     >
       <div
         className="relative w-full"

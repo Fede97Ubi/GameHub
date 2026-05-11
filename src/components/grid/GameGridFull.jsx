@@ -51,7 +51,10 @@ export const GameGridFull = ({ games, onGameSelect }) => {
     <div 
       ref={parentRef} 
       className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-      style={{ contain: 'strict' }}
+      style={{ 
+        marginTop: '-100px', 
+        paddingTop: '100px',
+      }}
     >
       <div
         className="relative w-full"
