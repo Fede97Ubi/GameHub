@@ -25,14 +25,15 @@
   },
   {
     "id": "game-003",
-    "title": "Halo Infinite",
-    "coverUrl": "/assets/covers/halo.webp",
-    "logoUrl": "/assets/logo/halo.webp",
-    "videoUrl": "/assets/videos/halo.mp4",
-    "description": "Quando ogni speranza è perduta e il destino dell'umanità è in bilico, Master Chief è pronto a scontrarsi con il nemico più spietato di sempre. Indossa l'armatura del più grande eroe dell'umanità per vivere un'avventura epica ed esplorare l'anello di Halo in tutta la sua vastità.",
-    "rating": 4.5,
-    "year": "2021",
-    "tags": ["FPS", "Open World", "Sci-Fi"]
+    "title": "Call of Duty: Zombies",
+    "coverUrl": "/assets/covers/cod_zombies.webp",
+    "logoUrl": "/assets/logo/cod_zombies.webp",
+    "videoUrl": "/assets/videos/cod_zombies.mp4",
+    "description": "Sopravvivi a ondate infinite di non-morti in una delle modalità più iconiche della storia dei videogiochi. Dalle paludi della Seconda Guerra Mondiale fino a stazioni spaziali remote, dovrai svelare l'intricata trama dell'Etere, potenziare armi con il Pack-a-Punch e collaborare con la tua squadra per resistere all'assedio zombie.",
+    "rating": "9.5/10",
+    "year": "2008 - in corso",
+    "tags": ["FPS", "Survival", "Co-op"],
+    "steamUrl": "https://store.steampowered.com/app/1930/Call_of_Duty_World_at_War/"
   },
   {
     "id": "game-004",

@@ -179,16 +179,16 @@ export const GameDetail = ({ game, onClose }) => {
           <div className="w-full h-full min-w-[300px]">
             {/* Titolo con Logo a sinistra */}
             <div className="flex items-center gap-6 mb-8">
-              <div className="flex-shrink-0 h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center overflow-hidden">
+              <div className="flex-shrink-0 h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 bg-zinc-800/50 rounded-2xl border-4 border-white/10 flex items-center justify-center overflow-hidden shadow-xl backdrop-blur-sm">
                 {game.logoUrl ? (
                   <img 
                     src={game.logoUrl} 
                     alt="" 
-                    className="w-full h-full object-contain p-1"
+                    className="w-full h-full object-contain rounded-xl"
                     onError={(e) => e.target.style.display = 'none'}
                   />
                 ) : (
-                  <div className="text-zinc-600 text-[10px] uppercase font-bold">Logo</div>
+                  <div className="text-zinc-600 text-[10px] uppercase font-bold text-center">Logo</div>
                 )}
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight">
