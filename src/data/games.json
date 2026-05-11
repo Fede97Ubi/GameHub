@@ -9,10 +9,22 @@
     "rating": "9.5/10",
     "year": "2001 - in corso",
     "tags": ["FPS", "Sci-Fi", "Co-op", "Narrazione"],
-    "steamUrl": "https://store.steampowered.com/app/976730/Halo_The_Master_Chief_Collection/?l=italian"
+    "steamUrl": "https://store.steampowered.com/app/976730/Halo_The_Master_Chief_Collection/"
   },
   {
     "id": "game-002",
+    "title": "Blue Prince",
+    "coverUrl": "/assets/covers/blueprince.webp",
+    "logoUrl": "/assets/logo/blueprince.webp",
+    "videoUrl": "/assets/videos/blueprince.mp4",
+    "description": "Benvenuti a Mt. Melbury, una stravagante tenuta in costante mutamento dove ogni porta conduce all'ignoto. In questo puzzle-adventure strategico, dovrai progettare la planimetria della villa stanza dopo stanza, svelando misteri e segreti in un viaggio dove il design è la tua unica via d'uscita.",
+    "rating": "9/10",
+    "year": "2025",
+    "tags": ["Puzzle", "Strategia", "Mistero", "Esplorazione"],
+    "steamUrl": "https://store.steampowered.com/app/1569580/Blue_Prince/"
+  },
+  {
+    "id": "game-003",
     "title": "Halo Infinite",
     "coverUrl": "/assets/covers/halo.webp",
     "logoUrl": "/assets/logo/halo.webp",
@@ -21,17 +33,6 @@
     "rating": 4.5,
     "year": "2021",
     "tags": ["FPS", "Open World", "Sci-Fi"]
-  },
-  {
-    "id": "game-003",
-    "title": "Hollow Knight",
-    "coverUrl": "/assets/covers/cod.webp",
-    "logoUrl": "/assets/logo/halo.webp",
-    "videoUrl": "/assets/videos/cod.mp4",
-    "description": "Forgia la tua strada in un regno in rovina di insetti ed eroi, esplorando caverne tortuose e combattendo creature corrotte.",
-    "rating": 5.0,
-    "year": "2017",
-    "tags": ["Metroidvania", "Platform", "Indie"]
   },
   {
     "id": "game-004",
