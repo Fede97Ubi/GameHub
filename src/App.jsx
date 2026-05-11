@@ -34,9 +34,6 @@ function App() {
           </div>
         )}
 
-        {/* Backdrop sfocato sulla griglia principale quando un gioco è selezionato */}
-        <div className={`absolute inset-0 transition-all duration-500 pointer-events-none z-10 ${selectedGame ? 'backdrop-blur-sm bg-black/40' : 'backdrop-blur-none bg-transparent'}`} />
-
         {isLoading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 overflow-hidden z-10">
             {Array.from({ length: 12 }).map((_, index) => (
