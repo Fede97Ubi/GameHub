@@ -1,0 +1,141 @@
+.header {
+  flex-shrink: 0;
+  z-index: 50;
+  width: 100%;
+  backdrop-filter: blur(12px);
+  background-color: rgba(9, 9, 11, 0.8);
+  border-bottom: 1px solid var(--color-border-medium);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.logo-badge {
+  background-color: var(--color-text-primary);
+  color: #000;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-md);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.header-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .header-label {
+    display: block;
+  }
+}
+
+.view-switcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-inner);
+}
+
+.switcher-bg {
+  position: absolute;
+  height: 2rem;
+  width: 3rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.switcher-btn {
+  position: relative;
+  z-index: 10;
+  width: 3rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.switcher-btn.active {
+  color: var(--color-text-primary);
+}
+
+.switcher-btn:hover:not(.active) {
+  color: var(--color-zinc-300);
+}
+
+.app-main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
+}
+
+.content-wrapper {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  position: relative;
+}
+
+.content-view {
+  position: absolute;
+  inset: 0;
+}
+
+.app-root {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main-container {
+  flex: 1;
+  width: 100%;
+  max-width: 1536px; /* 2xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-footer {
+  flex-shrink: 0;
+  width: 100%;
+  border-top: 1px solid var(--color-border-medium);
+  padding: var(--space-4) var(--space-6);
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}

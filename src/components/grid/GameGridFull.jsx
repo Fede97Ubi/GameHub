@@ -50,14 +50,10 @@ export const GameGridFull = ({ games, onGameSelect }) => {
   return (
     <div 
       ref={parentRef} 
-      className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-      style={{ 
-        marginTop: '-100px', 
-        paddingTop: '100px',
-      }}
+      className="grid-container custom-scrollbar"
     >
       <div
-        className="relative w-full"
+        className="grid-content"
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,
           paddingLeft: `${sidePadding}px`,
@@ -76,12 +72,11 @@ export const GameGridFull = ({ games, onGameSelect }) => {
             return (
               <div
                 key={game.id}
-                className="absolute top-0 left-0"
+                className="grid-item"
                 style={{
                   width: `${cardWidth}px`,
                   height: `${cardHeight}px`,
                   transform: `translate(${x}px, ${y}px)`,
-                  willChange: 'transform',
                 }}
               >
                 <GameCardFull game={game} onSelect={onGameSelect} />

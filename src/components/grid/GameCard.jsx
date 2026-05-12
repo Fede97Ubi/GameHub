@@ -5,6 +5,7 @@ export const GameCard = React.memo(({ game, onSelect }) => {
   const [isHovered, setIsHovered] = useState(false);
   const hoverTimeoutRef = useRef(null);
   const [showVideo, setShowVideo] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -17,6 +18,7 @@ export const GameCard = React.memo(({ game, onSelect }) => {
   const handleMouseLeave = () => {
     setIsHovered(false);
     setShowVideo(false);
+    setIsVideoPlaying(false);
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
@@ -40,45 +42,52 @@ export const GameCard = React.memo(({ game, onSelect }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => onSelect && onSelect(game)}
-      className="w-full h-full rounded-xl overflow-hidden cursor-pointer relative bg-zinc-900 border border-white/5 shadow-xl origin-center group"
+      className="card slim"
     >
-      {/* Immagine di Copertina (Animazione Condivisa) */}
-      <motion.img
-        layoutId={`cover-${game.id}`}
-        src={game.coverUrl}
-        alt={game.title}
-        loading="lazy"
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-          showVideo ? 'opacity-0' : 'opacity-100'
-        }`}
-      />
-      
-      {/* Video in Autoplay */}
-      {showVideo && (
-        <video
-          src={game.videoUrl}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover scale-[1.001]"
+      <div className="card-media">
+        {/* Immagine di Copertina */}
+        <motion.img
+          layoutId={`cover-${game.id}`}
+          src={game.coverUrl}
+          alt={game.title}
+          loading="lazy"
+          animate={{ opacity: isVideoPlaying ? 0 : 1 }}
+          transition={{ duration: 0.5 }}
+          className="card-img"
         />
-      )}
+        
+        {/* Video in Autoplay */}
+        {showVideo && (
+          <motion.video
+            src={game.videoUrl}
+            autoPlay
+            muted
+            loop
+            playsInline
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isVideoPlaying ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+            onPlaying={() => setIsVideoPlaying(true)}
+            className="card-video scale-[1.001]"
+          />
+        )}
 
-      {/* Overlay con Informazioni (visibile in hover) */}
-      <div 
-        className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 flex flex-col justify-end transition-opacity duration-300 ${
-          isHovered ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <h3 className="text-white font-bold text-sm lg:text-base truncate drop-shadow-md">{game.title}</h3>
-        <div className="flex gap-1 mt-1 flex-wrap">
-          {game.tags.slice(0, 5).map((tag, i) => (
-            <span key={i} className="text-[10px] px-1.5 py-0.5 bg-white/20 rounded-sm backdrop-blur-sm">
-              {tag}
-            </span>
-          ))}
-        </div>
+        {/* Overlay con Informazioni (visibile in hover) */}
+        <motion.div 
+          className="card-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <h3 className="card-title truncate drop-shadow-md">{game.title}</h3>
+          <div className="card-tags">
+            {game.tags.slice(0, 5).map((tag, i) => (
+              <span key={i} className="tag">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </motion.div>
   );

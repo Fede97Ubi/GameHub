@@ -1,8 +1,36 @@
+@import './styles/variables.css';
+@import './styles/components/card.css';
+@import './styles/components/game-detail.css';
+@import './styles/components/grid.css';
+@import './styles/components/layout.css';
+@import './styles/components/ui.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  @apply bg-zinc-950 text-white overflow-x-hidden;
-  font-family: sans-serif;
+  background-color: var(--color-bg-body);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-bg-body);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-full);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
 }

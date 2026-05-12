@@ -53,16 +53,10 @@ export const GameGridSmart = ({ games, onGameSelect }) => {
   return (
     <div 
       ref={parentRef} 
-      className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-      style={{ 
-        marginTop: '-100px', 
-        paddingTop: '100px',
-        // Assicuriamoci che lo scrollbar inizi dal punto giusto visivamente
-        maskImage: 'linear-gradient(to bottom, transparent 100px, black 100px)'
-      }}
+      className="grid-container custom-scrollbar with-mask"
     >
       <div
-        className="relative w-full"
+        className="grid-content"
         style={{
           height: `${rowVirtualizer.getTotalSize()}px`,
           paddingLeft: `${sidePadding}px`,
@@ -81,12 +75,11 @@ export const GameGridSmart = ({ games, onGameSelect }) => {
             return (
               <div
                 key={game.id}
-                className="absolute top-0 left-0"
+                className="grid-item"
                 style={{
                   width: `${cardWidth}px`,
                   height: `${cardHeight}px`,
                   transform: `translate(${x}px, ${y}px)`,
-                  willChange: 'transform', // Ottimizzazione per GPU
                 }}
               >
                 <GameCard game={game} onSelect={onGameSelect} />

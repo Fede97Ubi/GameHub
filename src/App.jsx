@@ -27,21 +27,21 @@ function App() {
 
   return (
     <Layout header={<Header viewMode={viewMode} setViewMode={setViewMode} />}>
-      <div className="w-full h-full flex flex-col min-h-0 relative">
+      <div className="app-main">
         {error && (
-          <div className="p-4 bg-red-500/20 text-red-200 border border-red-500/50 rounded-lg shrink-0 mb-4 z-10">
+          <div className="alert alert-error">
             Errore durante il caricamento dei giochi: {error}
           </div>
         )}
 
         {isLoading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 overflow-hidden z-10">
+          <div className="loading-grid">
             {Array.from({ length: 12 }).map((_, index) => (
               <GameCardSkeleton key={index} />
             ))}
           </div>
         ) : (
-          <div className="flex-1 w-full min-h-0 relative">
+          <div className="content-wrapper">
             <AnimatePresence mode="wait">
               {viewMode === 'smart' ? (
                 <motion.div 
@@ -50,7 +50,7 @@ function App() {
                   animate={{ opacity: 1, y: 0 }} 
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute inset-0"
+                  className="content-view"
                 >
                   <GameGridSmart games={games} onGameSelect={setSelectedGame} />
                 </motion.div>
@@ -61,7 +61,7 @@ function App() {
                   animate={{ opacity: 1, y: 0 }} 
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute inset-0"
+                  className="content-view"
                 >
                   <GameGridFull games={games} onGameSelect={setSelectedGame} />
                 </motion.div>
