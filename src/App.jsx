@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Layout from './components/layout/Layout';
 import { Header } from './components/layout/Header';
@@ -25,6 +25,38 @@ function App() {
     localStorage.setItem('gamehub_viewMode', viewMode);
   }, [viewMode]);
 
+  // Memoizzazione della griglia per evitare re-render durante l'apertura del dettaglio
+  const gridContent = useMemo(() => {
+    if (!games) return null;
+    return (
+      <AnimatePresence mode="wait">
+        {viewMode === 'smart' ? (
+          <motion.div 
+            key="smart" 
+            initial={{ opacity: 0, y: 10 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="content-view"
+          >
+            <GameGridSmart games={games} onGameSelect={setSelectedGame} />
+          </motion.div>
+        ) : (
+          <motion.div 
+            key="full" 
+            initial={{ opacity: 0, y: 10 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="content-view"
+          >
+            <GameGridFull games={games} onGameSelect={setSelectedGame} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    );
+  }, [viewMode, games]);
+
   return (
     <Layout header={<Header viewMode={viewMode} setViewMode={setViewMode} />}>
       <div className="app-main">
@@ -42,31 +74,7 @@ function App() {
           </div>
         ) : (
           <div className="content-wrapper">
-            <AnimatePresence mode="wait">
-              {viewMode === 'smart' ? (
-                <motion.div 
-                  key="smart" 
-                  initial={{ opacity: 0, y: 10 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="content-view"
-                >
-                  <GameGridSmart games={games} onGameSelect={setSelectedGame} />
-                </motion.div>
-              ) : (
-                <motion.div 
-                  key="full" 
-                  initial={{ opacity: 0, y: 10 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="content-view"
-                >
-                  <GameGridFull games={games} onGameSelect={setSelectedGame} />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {gridContent}
           </div>
         )}
 

@@ -19,27 +19,10 @@
   position: relative;
   z-index: 10;
   background-color: var(--color-bg-card);
-  overflow: hidden; /* Fondamentale per l'effetto ritaglio */
+  overflow: hidden;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   border: 1px solid var(--color-border-medium);
   pointer-events: auto;
-}
-
-.detail-content-canvas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Centratura assoluta per reveal dal centro */
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-  will-change: transform;
-}
-
-@media (max-width: 639px) {
-  .detail-content-canvas {
-    flex-direction: column;
-  }
 }
 
 .detail-close-btn {
