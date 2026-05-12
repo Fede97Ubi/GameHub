@@ -61,23 +61,27 @@ export const GameDetail = ({ game, onClose }) => {
   const boxWidth = isFullscreen ? targetWidth : defaultBoxWidth;
   const boxHeight = isFullscreen ? targetHeight : defaultBoxHeight;
 
+  // Dimensioni fisse per le colonne per evitare l'effetto "schiacciato" (Soluzione 2)
+  const fixedTextWidth = isMobile ? boxWidth : boxWidth / 2;
+  const fixedTextHeight = isMobile ? boxHeight / 2 : boxHeight;
+  const fixedMediaWidth = isMobile ? boxWidth : boxWidth / 2;
+  const fixedMediaHeight = isMobile ? boxHeight / 2 : boxHeight;
+
   // Transizione Spring: Molto più performante dei tween per il motore di proiezione
   const springConfig = { type: "spring", stiffness: 300, damping: 30, mass: 0.8 };
   const smoothTransition = { duration: 0.4, ease: [0.23, 1, 0.32, 1] };
 
   const mediaStyle = isFullscreen
-    ? { width: '100%', height: '100%' }
-    : (isMobile 
-        ? { width: '100%', height: '50%' } 
-        : { width: '50%', height: '100%' });
+    ? { width: boxWidth, height: boxHeight }
+    : { width: fixedMediaWidth, height: fixedMediaHeight };
 
   const textStyle = isFullscreen
     ? (isMobile 
-        ? { bottom: 0, left: 0, width: '100%', height: '0%', opacity: 0 } 
-        : { top: 0, right: 0, width: '0%', height: '100%', opacity: 0 })
+        ? { bottom: 0, left: 0, width: fixedTextWidth, height: 0, opacity: 0 } 
+        : { top: 0, right: 0, width: 0, height: fixedTextHeight, opacity: 0 })
     : (isMobile 
-        ? { bottom: 0, left: 0, width: '100%', height: '50%', opacity: 1 } 
-        : { top: 0, right: 0, width: '50%', height: '100%', opacity: 1 });
+        ? { bottom: 0, left: 0, width: fixedTextWidth, height: fixedTextHeight, opacity: 1 } 
+        : { top: 0, right: 0, width: fixedTextWidth, height: fixedTextHeight, opacity: 1 });
 
   return (
     <motion.div 
