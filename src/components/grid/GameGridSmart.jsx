@@ -64,7 +64,7 @@ export const GameGridSmart = ({ games, onGameSelect }) => {
   return (
     <div
       ref={parentRef}
-      className="grid-container custom-scrollbar with-mask"
+      className="grid-container custom-scrollbar"
     >
       <div
         className="grid-content"

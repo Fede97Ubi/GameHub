@@ -59,35 +59,31 @@ function App() {
 
   return (
     <Layout header={<Header viewMode={viewMode} setViewMode={setViewMode} />}>
-      <div className="app-main">
-        {error && (
-          <div className="alert alert-error">
-            Errore durante il caricamento dei giochi: {error}
-          </div>
-        )}
+      {error && (
+        <div className="alert alert-error">
+          Errore durante il caricamento dei giochi: {error}
+        </div>
+      )}
 
-        {isLoading ? (
-          <div className="loading-grid">
-            {Array.from({ length: 12 }).map((_, index) => (
-              <GameCardSkeleton key={index} />
-            ))}
-          </div>
-        ) : (
-          <div className="content-wrapper">
-            {gridContent}
-          </div>
-        )}
+      {isLoading ? (
+        <div className="loading-grid">
+          {Array.from({ length: 12 }).map((_, index) => (
+            <GameCardSkeleton key={index} />
+          ))}
+        </div>
+      ) : (
+        gridContent
+      )}
 
-        <AnimatePresence>
-          {selectedGame && (
-            <GameDetail 
-              key="detail" 
-              game={selectedGame} 
-              onClose={() => setSelectedGame(null)} 
-            />
-          )}
-        </AnimatePresence>
-      </div>
+      <AnimatePresence>
+        {selectedGame && (
+          <GameDetail 
+            key="detail" 
+            game={selectedGame} 
+            onClose={() => setSelectedGame(null)} 
+          />
+        )}
+      </AnimatePresence>
     </Layout>
   );
 }

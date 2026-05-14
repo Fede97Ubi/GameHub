@@ -10,16 +10,9 @@
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  /* Il margine negativo + padding-top crea lo spazio per la maschera gradient */
-  margin-top: -80px;
-  padding-top: 80px;
 }
 
-/* Maschera sfumatura in cima per nascondere le card che "escono" durante lo scroll */
-.grid-container.with-mask {
-  mask-image: linear-gradient(to bottom, transparent 80px, black 80px);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 80px, black 80px);
-}
+/* Maschera sfumatura rimossa */
 
 .grid-content {
   position: relative;

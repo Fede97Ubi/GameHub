@@ -5,7 +5,7 @@ const Layout = ({ children, header }) => {
     <div className="app-root antialiased">
       {header}
       
-      <main className="app-main-container">
+      <main className="app-main">
         {children}
       </main>
       
