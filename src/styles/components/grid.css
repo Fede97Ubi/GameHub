@@ -1,25 +1,47 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   GRID
+   Il container è l'unico elemento con overflow:hidden (per lo scroll).
+   grid-content e grid-item devono essere overflow:visible per permettere
+   alla card in hover di scalare senza essere clippata.
+───────────────────────────────────────────────────────────────────────────── */
+
 .grid-container {
   width: 100%;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-top: -100px;
-  padding-top: 100px;
+  /* Il margine negativo + padding-top crea lo spazio per la maschera gradient */
+  margin-top: -80px;
+  padding-top: 80px;
 }
 
-/* Maschera per lo sfumato superiore dello scroll */
+/* Maschera sfumatura in cima per nascondere le card che "escono" durante lo scroll */
 .grid-container.with-mask {
-  mask-image: linear-gradient(to bottom, transparent 100px, black 100px);
+  mask-image: linear-gradient(to bottom, transparent 80px, black 80px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 80px, black 80px);
 }
 
 .grid-content {
   position: relative;
   width: 100%;
+  /* overflow visible: fondamentale perché le card scalate non vengano clippate */
+  overflow: visible;
 }
 
 .grid-item {
   position: absolute;
   top: 0;
   left: 0;
+  /* will-change solo su transform: dichiarazione precisa → il browser crea
+     un layer GPU per questi elementi e non li ridisegna durante translate    */
   will-change: transform;
+  /* overflow visible per lo stesso motivo del genitore */
+  overflow: visible;
+  /* z-index gestito via CSS hover senza toccare Framer:
+     quando la card interna è in :hover, il grid-item sale a z:10
+     rispetto ai vicini che restano a z:auto                                  */
+}
+
+.grid-item:has(.card:hover) {
+  z-index: 10;
 }

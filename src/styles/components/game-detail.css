@@ -1,3 +1,13 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   GAME DETAIL
+   
+   PRINCIPIO ARCHITETTURALE:
+   Il modal ha dimensioni definite qui in CSS, non via JS/inline-style.
+   Framer anima solo scale, opacity e y → zero reflow durante le animazioni.
+   La colonna testo usa clip-path per sparire/apparire senza toccare il layout.
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Overlay (fixed, copre tutto) ─────────────────────────────────────────── */
 .detail-overlay {
   position: fixed;
   inset: 0;
@@ -5,197 +15,340 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* pointer-events:none sull'overlay; i figli lo riabilitano selettivamente */
   pointer-events: none;
 }
 
+/* ── Backdrop scuro ────────────────────────────────────────────────────────── */
 .detail-backdrop {
   position: absolute;
   inset: 0;
-  background-color: rgba(9, 9, 11, 0.95);
+  background-color: rgba(9, 9, 11, 0.92);
   pointer-events: auto;
+  cursor: default;
 }
 
+/* ── Modal ─────────────────────────────────────────────────────────────────── */
 .detail-modal {
   position: relative;
   z-index: 10;
-  background-color: var(--color-bg-card);
-  overflow: hidden;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--color-border-medium);
   pointer-events: auto;
+
+  /* Dimensioni: 92vw × 85vh su desktop, quasi fullscreen su mobile */
+  width:      clamp(320px, 92vw, 1280px);
+  height:     clamp(400px, 85vh, 860px);
+  max-width:  1280px;
+  max-height: 860px;
+
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border-medium);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 40px 80px -12px rgba(0, 0, 0, 0.7);
+
+  /* will-change SOLO su transform: ciò che Framer anima davvero */
+  will-change: transform, opacity;
 }
 
+@media (max-width: 639px) {
+  .detail-modal {
+    width:        calc(100vw - 24px);
+    height:       calc(100vh - 48px);
+    border-radius: 16px;
+  }
+}
+
+/* ── Layout interno ────────────────────────────────────────────────────────── */
+.detail-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+@media (max-width: 639px) {
+  .detail-inner {
+    flex-direction: column;
+  }
+}
+
+/* ── Colonna media (sinistra) ─────────────────────────────────────────────── */
+.detail-media-col {
+  position: relative;
+  /* Base: occupa metà del modal */
+  flex: 0 0 50%;
+  min-width: 0;
+  overflow: hidden;
+  background-color: #000;
+
+  /* La transizione flex è gestita da Framer layout:
+     quando fullscreen=true, questa colonna diventa flex:1
+     grazie alla classe .fullscreen che modifica flex-grow  */
+  transition: flex 0.0s; /* Framer si occupa del timing via layout */
+}
+
+.detail-media-col.fullscreen {
+  /* In fullscreen: occupa tutto il modal */
+  flex: 1 1 100%;
+}
+
+@media (max-width: 639px) {
+  .detail-media-col {
+    flex: 0 0 55%;
+  }
+}
+
+/* ── Immagine di copertina (FLIP target del layoutId) ────────────────────── */
+.detail-cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* z-index basso: il video sta sopra */
+  z-index: 1;
+}
+
+/* ── Video ─────────────────────────────────────────────────────────────────── */
+.detail-media-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  /* Leggermente overscalato per evitare bordi neri durante animazioni di layout */
+  transform: scale(1.005);
+}
+
+/* ── Gradiente media → testo ─────────────────────────────────────────────── */
+/* Su desktop: sfumatura da sinistra verso destra
+   Su mobile:  sfumatura da centro verso il basso                             */
+.detail-media-gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    to right,
+    transparent 40%,
+    var(--color-bg-card) 100%
+  );
+  opacity: 0.7;
+}
+
+@media (max-width: 639px) {
+  .detail-media-gradient {
+    background: linear-gradient(
+      to bottom,
+      transparent 40%,
+      var(--color-bg-card) 100%
+    );
+  }
+}
+
+/* ── Pulsante fullscreen ──────────────────────────────────────────────────── */
+.detail-fullscreen-btn {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 20;
+  padding: var(--space-2);
+  background-color: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-fullscreen-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* ── Pulsante chiudi ──────────────────────────────────────────────────────── */
 .detail-close-btn {
   position: absolute;
   top: var(--space-4);
+  /* Sta a destra del modal, subito dopo la colonna media */
   right: var(--space-4);
   z-index: 50;
   padding: var(--space-2);
   background-color: rgba(0, 0, 0, 0.5);
+  border: none;
   border-radius: var(--radius-full);
   color: var(--color-text-primary);
-  backdrop-filter: blur(12px);
-  transition: background-color 0.2s;
-  border: none;
   cursor: pointer;
-}
-
-.detail-close-btn:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.detail-media-container {
-  position: absolute;
-  background-color: #000;
+  backdrop-filter: blur(12px);
+  transition: background-color 0.15s;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  z-index: 20;
 }
 
-.detail-media-btn {
-  position: absolute;
-  top: var(--space-4);
-  right: var(--space-4);
-  z-index: 50;
-  padding: var(--space-2);
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: var(--radius-lg);
-  color: var(--color-text-primary);
-  backdrop-filter: blur(12px);
-  transition: background-color 0.2s;
-  border: 1px solid var(--color-border-medium);
-  cursor: pointer;
+.detail-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
-.detail-media-btn:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+/* ── Colonna testo (destra) ──────────────────────────────────────────────── */
+.detail-info-col {
+  /*
+    min-width fisso: il testo non si ricalcola mai.
+    Il contenuto ha una larghezza "conosciuta" e il clip-path
+    taglia solo la visibilità senza toccare il layout interno.
+  */
+  flex: 0 0 50%;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+
+  /* will-change: clip-path e opacity sono le uniche proprietà che Framer
+     anima su questo elemento                                                  */
+  will-change: clip-path, opacity;
 }
 
-.detail-info-container {
-  position: absolute;
+@media (max-width: 639px) {
+  .detail-info-col {
+    flex: 1;
+  }
+}
+
+/* ── Contenuto interno della colonna testo ───────────────────────────────── */
+.detail-info-inner {
+  padding: var(--space-8) var(--space-6);
   display: flex;
   flex-direction: column;
-  padding: var(--space-6);
-  overflow-y: auto;
-  z-index: 10;
+  min-height: 100%;
+  /* Larghezza fissa: non si restringe mai, overflow gestito dal genitore */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 640px) {
-  .detail-info-container {
+  .detail-info-inner {
     padding: var(--space-10);
   }
 }
 
+/* ── Header (logo + titolo) ───────────────────────────────────────────────── */
 .detail-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-6);
-  margin-bottom: var(--space-8);
-}
-
-.detail-logo-box {
-  flex-shrink: 0;
-  width: 3.5rem;
-  height: 3.5rem;
-  background-color: var(--color-bg-surface);
-  border-radius: var(--radius-2xl);
-  border: 4px solid var(--color-border-medium);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  box-shadow: var(--shadow-xl);
-  backdrop-filter: blur(4px);
-}
-
-@media (min-width: 640px) {
-  .detail-logo-box {
-    width: 4rem;
-    height: 4rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .detail-logo-box {
-    width: 5rem;
-    height: 5rem;
-  }
-}
-
-.detail-title {
-  font-size: 1.875rem;
-  font-weight: 900;
-  color: var(--color-text-primary);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-
-@media (min-width: 640px) {
-  .detail-title {
-    font-size: 2.25rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .detail-title {
-    font-size: 3rem;
-  }
-}
-
-.detail-meta {
   display: flex;
   align-items: center;
   gap: var(--space-4);
   margin-bottom: var(--space-6);
 }
 
+.detail-logo-box {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  background-color: var(--color-bg-surface);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.detail-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.detail-logo-placeholder {
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.detail-title {
+  font-size: clamp(1.4rem, 2.5vw, 2.5rem);
+  font-weight: 900;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  /* Il testo va a capo: non si "schiaccia" mai, la larghezza è quella del box */
+  word-break: break-word;
+}
+
+/* ── Meta (rating + anno) ─────────────────────────────────────────────────── */
+.detail-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
 .detail-rating-badge {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: 4px;
   color: var(--color-rating);
   background-color: rgba(234, 179, 8, 0.1);
-  padding: 0.375rem 0.75rem;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
   font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.detail-star {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
 }
 
 .detail-year-badge {
   color: var(--color-text-secondary);
   font-weight: 500;
-  border: 1px solid #3f3f46; /* zinc-700 */
-  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--color-border-dark);
+  padding: 4px 10px;
   border-radius: var(--radius-full);
   font-size: 0.875rem;
 }
 
+/* ── Tag ──────────────────────────────────────────────────────────────────── */
 .detail-tags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .detail-tag {
   font-size: 0.75rem;
   font-weight: 600;
-  padding: 0.25rem 0.625rem;
-  background-color: var(--color-bg-card);
+  padding: 3px 10px;
+  background-color: var(--color-bg-surface);
   border: 1px solid var(--color-border-subtle);
   color: var(--color-text-secondary);
   border-radius: var(--radius-md);
+  white-space: nowrap;
 }
 
+/* ── Descrizione ─────────────────────────────────────────────────────────── */
 .detail-description {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.7;
   white-space: pre-line;
   margin-bottom: var(--space-8);
+  flex: 1;
 }
 
+/* ── CTA ──────────────────────────────────────────────────────────────────── */
 .detail-cta-container {
   margin-top: auto;
   padding-top: var(--space-4);
@@ -210,40 +363,18 @@
   text-align: center;
   font-weight: 700;
   border-radius: var(--radius-xl);
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   text-decoration: none;
-  transition: transform 0.2s, background-color 0.2s;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   border: none;
   cursor: pointer;
+  transition: background-color 0.15s, transform 0.15s;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.08);
 }
 
 .detail-cta:hover {
-  background-color: #e4e4e7; /* zinc-200 */
+  background-color: #e4e4e7;
 }
 
 .detail-cta:active {
-  transform: scale(0.95);
-}
-
-.detail-media-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, var(--color-bg-body), transparent, transparent);
-  opacity: 0.8;
-  pointer-events: none;
-  z-index: 20;
-}
-
-@media (min-width: 640px) {
-  .detail-media-overlay {
-    background: linear-gradient(to right, var(--color-bg-body), transparent, transparent);
-  }
-}
-
-.detail-info-inner {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  transform: scale(0.97);
 }
