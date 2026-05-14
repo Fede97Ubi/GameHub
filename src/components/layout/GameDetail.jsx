@@ -161,8 +161,6 @@ export const GameDetail = ({ game, onClose }) => {
           */}
           <motion.div
             className={`detail-media-col ${fullscreen ? 'fullscreen' : ''}`}
-            layout
-            transition={SPRING_MODAL}
           >
 
             {/* Immagine con FLIP layoutId dalla card */}
@@ -195,19 +193,7 @@ export const GameDetail = ({ game, onClose }) => {
               transition={{ duration: 0.5 }}
             />
 
-            {/* Gradiente di transizione verso la colonna destra */}
-            <AnimatePresence>
-              {!fullscreen && (
-                <motion.div
-                  key="media-grad"
-                  className="detail-media-gradient"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{    opacity: 0 }}
-                  transition={FADE_FAST}
-                />
-              )}
-            </AnimatePresence>
+            {/* Gradiente rimosso */}
 
             {/* Pulsante fullscreen */}
             <button
