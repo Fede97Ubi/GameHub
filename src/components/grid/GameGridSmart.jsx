@@ -43,7 +43,7 @@ export const GameGridSmart = ({ games, onGameSelect }) => {
     ? (containerWidth - GAP * (columns - 1)) / columns
     : 0;
   const sidePadding   = rawCardWidth > 0
-    ? Math.ceil((rawCardWidth * (SCALE_FACTOR - 1)) / 2) + 4   // +4px margine sicurezza
+    ? Math.ceil((rawCardWidth * (SCALE_FACTOR - 1)) / 2) + 4 + 20   // +4px margine sicurezza
     : 20;
 
   const availableWidth = containerWidth - sidePadding * 2;
