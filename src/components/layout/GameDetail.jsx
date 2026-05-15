@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Maximize2, Minimize2 } from 'lucide-react';
+import { X, Maximize2, Minimize2, Volume2, VolumeX } from 'lucide-react';
 
 const SPRING = { type: 'spring', stiffness: 280, damping: 28, mass: 0.9 };
 const FADE   = { duration: 0.2 };
@@ -29,8 +29,11 @@ export const GameDetail = ({ game, onClose }) => {
   const [videoReady,   setVideoReady]   = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [fullscreen,   setFullscreen]   = useState(false);
+  const [muted,        setMuted]        = useState(true);
   const [videoAspect,  setVideoAspect]  = useState(16 / 9);
   const [renderedSize, setRenderedSize] = useState(null);
+  const [showControls, setShowControls] = useState(true);
+  const controlsTimerRef = useRef(null);
 
   const [vp, setVp] = useState({
     w: typeof window !== 'undefined' ? window.innerWidth  : 1280,
@@ -58,6 +61,33 @@ export const GameDetail = ({ game, onClose }) => {
     }
   }, [openComplete, videoReady]);
 
+  // Gestione timer inattività controlli
+  const resetControlsTimer = useCallback(() => {
+    if (!fullscreen) {
+      setShowControls(true);
+      return;
+    }
+    
+    setShowControls(true);
+    if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current);
+    
+    controlsTimerRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 2000);
+  }, [fullscreen]);
+
+  useEffect(() => {
+    if (fullscreen) {
+      resetControlsTimer();
+    } else {
+      setShowControls(true);
+      if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current);
+    }
+    return () => {
+      if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current);
+    };
+  }, [fullscreen, resetControlsTimer]);
+
   const handleMetadata = useCallback((e) => {
     const { videoWidth: vw, videoHeight: vh } = e.target;
     if (vw && vh) setVideoAspect(vw / vh);
@@ -66,6 +96,28 @@ export const GameDetail = ({ game, onClose }) => {
 
   const handleCanPlay = useCallback(() => setVideoReady(true), []);
   const handlePlaying = useCallback(() => setVideoPlaying(true), []);
+
+  const toggleMute = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const target = muted ? 1 : 0;
+    // Ramp volume in 200ms per evitare click audio
+    const steps = 10;
+    const interval = 200 / steps;
+    const delta = (target - v.volume) / steps;
+    let step = 0;
+    v.muted = false; // serve per poter controllare il volume
+    const ramp = setInterval(() => {
+      step++;
+      v.volume = Math.max(0, Math.min(1, v.volume + delta));
+      if (step >= steps) {
+        clearInterval(ramp);
+        v.volume = target;
+        if (target === 0) v.muted = true;
+      }
+    }, interval);
+    setMuted(!muted);
+  }, [muted]);
 
   const openFiredRef = useRef(false);
   const handleAnimComplete = useCallback(() => {
@@ -123,7 +175,11 @@ export const GameDetail = ({ game, onClose }) => {
 
         <div className="detail-inner">
 
-          <div className={`detail-media-col ${fullscreen ? 'fullscreen' : ''}`}>
+          <div 
+            className={`detail-media-col ${fullscreen ? 'fullscreen' : ''}`}
+            onMouseMove={resetControlsTimer}
+            style={{ cursor: (fullscreen && !showControls) ? 'none' : 'auto' }}
+          >
             <motion.img
               layoutId={`cover-${game.id}`}
               src={game.coverUrl}
@@ -148,13 +204,35 @@ export const GameDetail = ({ game, onClose }) => {
               transition={{ duration: 0.5 }}
             />
 
-            <button
-              className="detail-fullscreen-btn"
-              onClick={() => setFullscreen(f => !f)}
-              aria-label={fullscreen ? 'Esci dal fullscreen' : 'Fullscreen'}
-            >
-              {fullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
-            </button>
+            <AnimatePresence>
+              {showControls && (
+                <>
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="detail-fullscreen-btn"
+                    onClick={() => setFullscreen(f => !f)}
+                    aria-label={fullscreen ? 'Esci dal fullscreen' : 'Fullscreen'}
+                  >
+                    {fullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+                  </motion.button>
+
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="detail-mute-btn"
+                    onClick={toggleMute}
+                    aria-label={muted ? 'Attiva audio' : 'Disattiva audio'}
+                  >
+                    {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                  </motion.button>
+                </>
+              )}
+            </AnimatePresence>
           </div>
 
           <motion.div
