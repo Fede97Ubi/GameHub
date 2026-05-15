@@ -84,7 +84,7 @@ export const GameCard = React.memo(({ game, onSelect }) => {
           animate={{ opacity: hovered ? 1 : 0 }}
           transition={{ duration: 0.25 }}
         >
-          <h3 className="card-title truncate">{game.title}</h3>
+          <h3 className="card-title">{game.title}</h3>
           <div className="card-tags">
             {game.tags.slice(0, 4).map((tag, i) => (
               <span key={i} className="tag">{tag}</span>

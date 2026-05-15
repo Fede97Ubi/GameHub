@@ -74,21 +74,21 @@
     "coverUrl": "/assets/covers/trials_rising.webp",
     "logoUrl": "/assets/logo/trials_rising.webp",
     "videoUrl": "/assets/videos/trials_rising.mp4",
-    "description": "Sconfiggi il dio dei morti e fuggi dagli Inferi in questo dungeon crawler rogue-like dai creatori di Bastion e Transistor.",
-    "rating": 4.9,
-    "year": "2020",
-    "tags": ["Roguelike", "Action", "Indie"]
+    "description": "Trials Rising è un’autentica dipendenza che trasforma ogni gara in una sfida fisica e mentale.\nGuidato da un realismo esasperato, il gioco ti catapulta in un’esperienza visiva e meccanica che sfida continuamente la tua pazienza, regalandoti al tempo stesso un senso di soddisfazione impagabile.\nPreparati a cadere, sbattere, rialzarti e sfidare la gravità, perché in questo gioco, la caduta è solo parte del divertimento, mentre la perfezione è l'unica via per la gloria.",
+    "rating": "8/10",
+    "year": "2019",
+    "tags": ["Racing"]
   },
   {
     "id": "game-008",
-    "title": "Doom Eternal",
-    "coverUrl": "/assets/covers/cod.webp",
-    "logoUrl": "/assets/logo/halo.webp",
-    "videoUrl": "/assets/videos/cod.mp4",
-    "description": "Gli eserciti dell'Inferno hanno invaso la Terra. Diventa lo Slayer in un'epica campagna per giocatore singolo e distruggi i demoni.",
-    "rating": 4.7,
-    "year": "2020",
-    "tags": ["FPS", "Action", "Gore"]
+    "title": "Minecraft",
+    "coverUrl": "/assets/covers/minecraft.webp",
+    "logoUrl": "/assets/logo/minecraft.webp",
+    "videoUrl": "/assets/videos/minecraft.mp4",
+    "description": "Minecraft ha ridefinito per sempre i videogiochi di avventura e costruzione.\n\nAttraversa biomi generati proceduralmente, raccogli risorse, costruisci rifugi e difenditi dai mostri che emergono al calar della notte.\n\nChe tu voglia esplorare caverne infinite, costruire città colossali o sfidare boss epici, Minecraft offre una libertà creativa illimitata.\n\nUn'esperienza che non smette di crescere, aggiornamento dopo aggiornamento, mod dopo mod,mantenendo vivo il sogno di milioni di giocatori in tutto il mondo.",
+    "rating": "9/10",
+    "year": "2011",
+    "tags": ["Open World", "Survival","Sandbox"]
   },
   {
     "id": "game-009",

@@ -41,9 +41,10 @@
 
 .card-overlay {
   position: absolute;
-  inset-x: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
   padding: var(--space-4);
   display: flex;
   flex-direction: column;
@@ -67,12 +68,16 @@
 .card-title {
   color: var(--color-text-primary);
   font-weight: 700;
-  margin-bottom: var(--space-2);
+  line-height: 1.2;
+  /* Limita a 2 righe se il titolo è troppo lungo */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card.slim .card-title {
   font-size: 0.875rem;
-  margin-bottom: var(--space-1);
 }
 
 .card.full .card-title {
@@ -93,7 +98,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
-  margin-top: var(--space-4);
+  margin-top: var(--space-2);
 }
 
 .tag {

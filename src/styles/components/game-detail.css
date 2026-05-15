@@ -195,7 +195,6 @@
   min-height: 100%;
   /* Larghezza fissa: non si restringe mai, overflow gestito dal genitore */
   width: 100%;
-  box-sizing: border-box;
 }
 
 @media (min-width: 640px) {
