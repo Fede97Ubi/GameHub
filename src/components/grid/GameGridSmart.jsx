@@ -68,7 +68,7 @@ export const GameGridSmart = ({ games, onGameSelect }) => {
     >
       <div
         className="grid-content"
-        style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+        style={{ height: `${rowVirtualizer.getTotalSize() + (sidePadding * 2) - GAP}px` }}
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
           const from    = virtualRow.index * columns;
