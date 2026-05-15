@@ -1,10 +1,14 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    GAME DETAIL
    
-   PRINCIPIO ARCHITETTURALE:
-   Il modal ha dimensioni definite qui in CSS, non via JS/inline-style.
-   Framer anima solo scale, opacity e y → zero reflow durante le animazioni.
-   La colonna testo usa clip-path per sparire/apparire senza toccare il layout.
+   ARCHITETTURA:
+   • Le dimensioni del modal sono calcolate in JS (specchiano il clamp CSS)
+     e animate da Framer via width/height inline.
+   • In modalità normale: initial == animate → zero animazione dimensioni.
+   • In fullscreen: Framer anima width/height verso l'aspect ratio del video.
+   • La colonna media occupa sempre il 100% del modal.
+   • La colonna testo è in position:absolute sovrapposta da destra,
+     nascosta in fullscreen via clip-path.
 ───────────────────────────────────────────────────────────────────────────── */
 
 /* ── Overlay (fixed, copre tutto) ─────────────────────────────────────────── */
@@ -15,7 +19,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* pointer-events:none sull'overlay; i figli lo riabilitano selettivamente */
   pointer-events: none;
 }
 
@@ -29,16 +32,12 @@
 }
 
 /* ── Modal ─────────────────────────────────────────────────────────────────── */
+/* width e height sono gestiti da Framer inline (animate={{ width, height }}).
+   Il CSS definisce solo gli stili decorativi e il contenimento.              */
 .detail-modal {
   position: relative;
   z-index: 10;
   pointer-events: auto;
-
-  /* Dimensioni: 92vw × 85vh su desktop, quasi fullscreen su mobile */
-  width:      clamp(320px, 92vw, 1280px);
-  height:     clamp(400px, 85vh, 860px);
-  max-width:  1280px;
-  max-height: 860px;
 
   border-radius: 20px;
   overflow: hidden;
@@ -48,14 +47,16 @@
     0 0 0 1px rgba(255,255,255,0.04),
     0 40px 80px -12px rgba(0, 0, 0, 0.7);
 
-  /* will-change SOLO su transform: ciò che Framer anima davvero */
-  will-change: transform, opacity;
+  will-change: transform, opacity, width, height;
+}
+
+/* In fullscreen il border-radius si riduce per un look più cinematico */
+.detail-modal--fs {
+  border-radius: 12px;
 }
 
 @media (max-width: 639px) {
   .detail-modal {
-    width:        calc(100vw - 24px);
-    height:       calc(100vh - 48px);
     border-radius: 16px;
   }
 }
@@ -65,11 +66,11 @@
   position: relative;
   width: 100%;
   height: 100%;
-  display: block;
   overflow: hidden;
 }
 
 /* ── Colonna media (sinistra) ─────────────────────────────────────────────── */
+/* Normale: 50% sinistra. Fullscreen: 100% del modal.                        */
 .detail-media-col {
   position: relative;
   width: 50%;
@@ -77,12 +78,11 @@
   overflow: hidden;
   background-color: #000;
   z-index: 5;
-  transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1), height 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: width 0.45s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .detail-media-col.fullscreen {
   width: 100%;
-  height: 100%;
   z-index: 15;
 }
 
@@ -100,7 +100,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* z-index basso: il video sta sopra */
   z-index: 1;
 }
 
@@ -112,11 +111,39 @@
   height: 100%;
   object-fit: cover;
   z-index: 2;
-  /* Leggermente overscalato per evitare bordi neri durante animazioni di layout */
+  /* Leggermente overscalato per evitare bordi neri durante animazioni */
   transform: scale(1.005);
 }
 
-/* Gradiente rimosso */
+/* In fullscreen il video deve mostrare tutto il contenuto senza tagli */
+.detail-modal--fs .detail-media-video {
+  object-fit: contain;
+  transform: none;
+}
+
+/* ── Gradiente media → testo ─────────────────────────────────────────────── */
+.detail-media-gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    to right,
+    transparent 50%,
+    var(--color-bg-card) 100%
+  );
+  opacity: 0.85;
+}
+
+@media (max-width: 639px) {
+  .detail-media-gradient {
+    background: linear-gradient(
+      to bottom,
+      transparent 40%,
+      var(--color-bg-card) 100%
+    );
+  }
+}
 
 /* ── Pulsante fullscreen ──────────────────────────────────────────────────── */
 .detail-fullscreen-btn {
@@ -145,7 +172,6 @@
 .detail-close-btn {
   position: absolute;
   top: var(--space-4);
-  /* Sta a destra del modal, subito dopo la colonna media */
   right: var(--space-4);
   z-index: 50;
   padding: var(--space-2);
@@ -165,7 +191,7 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* ── Colonna testo (destra) ──────────────────────────────────────────────── */
+/* ── Colonna testo (destra, sovrapposta) ──────────────────────────────────── */
 .detail-info-col {
   position: absolute;
   top: 0;
@@ -176,7 +202,7 @@
   overflow-x: hidden;
   background-color: var(--color-bg-card);
   z-index: 10;
-  will-change: clip-path, opacity;
+  will-change: transform;
 }
 
 @media (max-width: 639px) {
@@ -193,7 +219,6 @@
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  /* Larghezza fissa: non si restringe mai, overflow gestito dal genitore */
   width: 100%;
 }
 
@@ -244,7 +269,6 @@
   color: var(--color-text-primary);
   line-height: 1.15;
   letter-spacing: -0.02em;
-  /* Il testo va a capo: non si "schiaccia" mai, la larghezza è quella del box */
   word-break: break-word;
 }
 
