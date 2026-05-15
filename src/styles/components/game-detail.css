@@ -1,17 +1,8 @@
 /* ─────────────────────────────────────────────────────────────────────────────
-   GAME DETAIL
-   
-   ARCHITETTURA:
-   • Le dimensioni del modal sono calcolate in JS (specchiano il clamp CSS)
-     e animate da Framer via width/height inline.
-   • In modalità normale: initial == animate → zero animazione dimensioni.
-   • In fullscreen: Framer anima width/height verso l'aspect ratio del video.
-   • La colonna media occupa sempre il 100% del modal.
-   • La colonna testo è in position:absolute sovrapposta da destra,
-     nascosta in fullscreen via clip-path.
+   GAME DETAIL — Dimensioni modal gestite da Framer (width/height inline).
+   Colonna testo sovrapposta in position:absolute, nascosta con translateX.
 ───────────────────────────────────────────────────────────────────────────── */
 
-/* ── Overlay (fixed, copre tutto) ─────────────────────────────────────────── */
 .detail-overlay {
   position: fixed;
   inset: 0;
@@ -22,7 +13,6 @@
   pointer-events: none;
 }
 
-/* ── Backdrop scuro ────────────────────────────────────────────────────────── */
 .detail-backdrop {
   position: absolute;
   inset: 0;
@@ -31,14 +21,10 @@
   cursor: default;
 }
 
-/* ── Modal ─────────────────────────────────────────────────────────────────── */
-/* width e height sono gestiti da Framer inline (animate={{ width, height }}).
-   Il CSS definisce solo gli stili decorativi e il contenimento.              */
 .detail-modal {
   position: relative;
   z-index: 10;
   pointer-events: auto;
-
   border-radius: 20px;
   overflow: hidden;
   background-color: var(--color-bg-card);
@@ -46,13 +32,7 @@
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.04),
     0 40px 80px -12px rgba(0, 0, 0, 0.7);
-
-  will-change: transform, opacity, width, height;
-}
-
-/* In fullscreen il border-radius si riduce per un look più cinematico */
-.detail-modal--fs {
-  border-radius: 12px;
+  will-change: transform, opacity;
 }
 
 @media (max-width: 639px) {
@@ -61,7 +41,6 @@
   }
 }
 
-/* ── Layout interno ────────────────────────────────────────────────────────── */
 .detail-inner {
   position: relative;
   width: 100%;
@@ -70,7 +49,7 @@
 }
 
 /* ── Colonna media (sinistra) ─────────────────────────────────────────────── */
-/* Normale: 50% sinistra. Fullscreen: 100% del modal.                        */
+
 .detail-media-col {
   position: relative;
   width: 50%;
@@ -93,7 +72,6 @@
   }
 }
 
-/* ── Immagine di copertina (FLIP target del layoutId) ────────────────────── */
 .detail-cover-img {
   position: absolute;
   inset: 0;
@@ -103,7 +81,6 @@
   z-index: 1;
 }
 
-/* ── Video ─────────────────────────────────────────────────────────────────── */
 .detail-media-video {
   position: absolute;
   inset: 0;
@@ -111,41 +88,11 @@
   height: 100%;
   object-fit: cover;
   z-index: 2;
-  /* Leggermente overscalato per evitare bordi neri durante animazioni */
   transform: scale(1.005);
 }
 
-/* In fullscreen il video deve mostrare tutto il contenuto senza tagli */
-.detail-modal--fs .detail-media-video {
-  object-fit: contain;
-  transform: none;
-}
+/* ── Pulsanti ─────────────────────────────────────────────────────────────── */
 
-/* ── Gradiente media → testo ─────────────────────────────────────────────── */
-.detail-media-gradient {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
-  background: linear-gradient(
-    to right,
-    transparent 50%,
-    var(--color-bg-card) 100%
-  );
-  opacity: 0.85;
-}
-
-@media (max-width: 639px) {
-  .detail-media-gradient {
-    background: linear-gradient(
-      to bottom,
-      transparent 40%,
-      var(--color-bg-card) 100%
-    );
-  }
-}
-
-/* ── Pulsante fullscreen ──────────────────────────────────────────────────── */
 .detail-fullscreen-btn {
   position: absolute;
   top: var(--space-4);
@@ -157,7 +104,6 @@
   border-radius: var(--radius-lg);
   color: var(--color-text-primary);
   cursor: pointer;
-  backdrop-filter: blur(8px);
   transition: background-color 0.15s;
   display: flex;
   align-items: center;
@@ -168,7 +114,6 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* ── Pulsante chiudi ──────────────────────────────────────────────────────── */
 .detail-close-btn {
   position: absolute;
   top: var(--space-4);
@@ -180,7 +125,6 @@
   border-radius: var(--radius-full);
   color: var(--color-text-primary);
   cursor: pointer;
-  backdrop-filter: blur(12px);
   transition: background-color 0.15s;
   display: flex;
   align-items: center;
@@ -192,6 +136,7 @@
 }
 
 /* ── Colonna testo (destra, sovrapposta) ──────────────────────────────────── */
+
 .detail-info-col {
   position: absolute;
   top: 0;
@@ -213,7 +158,6 @@
   }
 }
 
-/* ── Contenuto interno della colonna testo ───────────────────────────────── */
 .detail-info-inner {
   padding: var(--space-8) var(--space-6);
   display: flex;
@@ -228,7 +172,8 @@
   }
 }
 
-/* ── Header (logo + titolo) ───────────────────────────────────────────────── */
+/* ── Header ───────────────────────────────────────────────────────────────── */
+
 .detail-header {
   display: flex;
   align-items: center;
@@ -272,7 +217,8 @@
   word-break: break-word;
 }
 
-/* ── Meta (rating + anno) ─────────────────────────────────────────────────── */
+/* ── Meta ──────────────────────────────────────────────────────────────────── */
+
 .detail-meta {
   display: flex;
   align-items: center;
@@ -309,6 +255,7 @@
 }
 
 /* ── Tag ──────────────────────────────────────────────────────────────────── */
+
 .detail-tags {
   display: flex;
   flex-wrap: wrap;
@@ -328,6 +275,7 @@
 }
 
 /* ── Descrizione ─────────────────────────────────────────────────────────── */
+
 .detail-description {
   font-size: 0.9375rem;
   color: var(--color-text-secondary);
@@ -338,6 +286,7 @@
 }
 
 /* ── CTA ──────────────────────────────────────────────────────────────────── */
+
 .detail-cta-container {
   margin-top: auto;
   padding-top: var(--space-4);

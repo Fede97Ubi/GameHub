@@ -2,20 +2,9 @@ import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Maximize2, Minimize2 } from 'lucide-react';
 
-// ─── Spring ───────────────────────────────────────────────────────────────────
-const SPRING = {
-  type:      'spring',
-  stiffness: 280,
-  damping:   28,
-  mass:      0.9,
-};
+const SPRING = { type: 'spring', stiffness: 280, damping: 28, mass: 0.9 };
+const FADE   = { duration: 0.2 };
 
-const FADE = { duration: 0.2 };
-
-// ─── Calcolo dimensioni ────────────────────────────────────────────────────────
-// calcNormalSize specchia esattamente il CSS clamp() del modal in JS.
-// Serve per dare a Framer i valori iniziali giusti: se initial == animate
-// su width/height, Framer non li anima all'apertura.
 function calcNormalSize(vpW, vpH) {
   return {
     w: Math.max(320, Math.min(vpW * 0.92, 1280)),
@@ -32,40 +21,37 @@ function calcFullscreenSize(vpW, vpH, aspect) {
   return { w: Math.round(w), h: Math.round(h) };
 }
 
-// ─── Componente ───────────────────────────────────────────────────────────────
 export const GameDetail = ({ game, onClose }) => {
   const videoRef = useRef(null);
+  const modalRef = useRef(null);
 
   const [openComplete, setOpenComplete] = useState(false);
   const [videoReady,   setVideoReady]   = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [fullscreen,   setFullscreen]   = useState(false);
   const [videoAspect,  setVideoAspect]  = useState(16 / 9);
+  const [renderedSize, setRenderedSize] = useState(null);
 
   const [vp, setVp] = useState({
     w: typeof window !== 'undefined' ? window.innerWidth  : 1280,
     h: typeof window !== 'undefined' ? window.innerHeight : 800,
   });
 
-  // Resize listener
   useEffect(() => {
     const fn = () => setVp({ w: window.innerWidth, h: window.innerHeight });
     window.addEventListener('resize', fn, { passive: true });
     return () => window.removeEventListener('resize', fn);
   }, []);
 
-  // Escape
   useEffect(() => {
     const fn = (e) => {
       if (e.key !== 'Escape') return;
-      if (fullscreen) setFullscreen(false);
-      else onClose();
+      fullscreen ? setFullscreen(false) : onClose();
     };
     window.addEventListener('keydown', fn);
     return () => window.removeEventListener('keydown', fn);
   }, [fullscreen, onClose]);
 
-  // Avvio video dopo apertura + ready
   useEffect(() => {
     if (openComplete && videoReady && videoRef.current) {
       videoRef.current.play().catch(() => {});
@@ -81,77 +67,43 @@ export const GameDetail = ({ game, onClose }) => {
   const handleCanPlay = useCallback(() => setVideoReady(true), []);
   const handlePlaying = useCallback(() => setVideoPlaying(true), []);
 
-  // openComplete si setta solo una volta (alla prima animazione di apertura)
   const openFiredRef = useRef(false);
   const handleAnimComplete = useCallback(() => {
     if (!openFiredRef.current) {
       openFiredRef.current = true;
+      if (modalRef.current) {
+        const rect = modalRef.current.getBoundingClientRect();
+        setRenderedSize({ w: Math.round(rect.width), h: Math.round(rect.height) });
+      }
       setOpenComplete(true);
     }
   }, []);
 
   if (!game) return null;
 
-  // ── Dimensioni modal ─────────────────────────────────────────────────────────
-  //
-  // PRINCIPIO:
-  // • normalSize specchia il clamp() CSS in JS.
-  // • Su apertura: initial.width == animate.width → Framer non anima le dimensioni,
-  //   anima solo opacity/scale/y. Zero width/height animation sull'apertura.
-  // • Su toggle fullscreen: animate.width/height cambia → Framer li anima con spring.
-  //   Il modal è in un overlay fixed, isolato dal resto del layout →
-  //   il reflow è contenuto e non coinvolge la pagina.
-  const normalSize = useMemo(
-    () => calcNormalSize(vp.w, vp.h),
-    [vp.w, vp.h]
-  );
-
-  const targetSize = fullscreen
-    ? calcFullscreenSize(vp.w, vp.h, videoAspect)
-    : normalSize;
+  const calcSize   = calcNormalSize(vp.w, vp.h);
+  const normalSize = renderedSize || calcSize;
+  const targetSize = fullscreen ? calcFullscreenSize(vp.w, vp.h, videoAspect) : normalSize;
 
   return (
     <motion.div
       className="detail-overlay"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{    opacity: 0, transition: FADE }}
+      exit={{ opacity: 0, transition: FADE }}
       transition={FADE}
     >
-      {/* Backdrop */}
-      <motion.div
-        className="detail-backdrop"
-        onClick={onClose}
-      />
+      <motion.div className="detail-backdrop" onClick={onClose} />
 
-      {/* Modal */}
       <motion.div
-        className={`detail-modal ${fullscreen ? 'detail-modal--fs' : ''}`}
-        initial={{
-          opacity: 0,
-          scale:   0.88,
-          y:       24,
-          width:   normalSize.w,
-          height:  normalSize.h,
-        }}
-        animate={{
-          opacity: 1,
-          scale:   1,
-          y:       0,
-          width:   targetSize.w,
-          height:  targetSize.h,
-        }}
-        exit={{
-          opacity: 0,
-          scale:   0.92,
-          y:       16,
-          transition: { duration: 0.25, ease: [0.4, 0, 1, 1] },
-        }}
+        ref={modalRef}
+        className="detail-modal"
+        initial={{ opacity: 0, scale: 0.88, y: 24, width: calcSize.w, height: calcSize.h }}
+        animate={{ opacity: 1, scale: 1, y: 0, width: targetSize.w, height: targetSize.h }}
+        exit={{ opacity: 0, scale: 0.92, y: 16, transition: { duration: 0.25, ease: [0.4, 0, 1, 1] } }}
         transition={SPRING}
         onAnimationComplete={handleAnimComplete}
       >
-
-        {/* Pulsante chiudi — solo fuori fullscreen */}
         <AnimatePresence>
           {!fullscreen && (
             <motion.button
@@ -159,7 +111,7 @@ export const GameDetail = ({ game, onClose }) => {
               className="detail-close-btn"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{    opacity: 0 }}
+              exit={{ opacity: 0 }}
               transition={FADE}
               onClick={onClose}
               aria-label="Chiudi"
@@ -169,15 +121,9 @@ export const GameDetail = ({ game, onClose }) => {
           )}
         </AnimatePresence>
 
-        {/* Layout interno */}
         <div className="detail-inner">
 
-          {/* ══ COLONNA MEDIA ════════════════════════════════════════════════
-              Normale: 50% sinistra. Fullscreen: 100%.
-              La colonna testo è in position:absolute sovrapposta da destra.
-          ════════════════════════════════════════════════════════════════ */}
           <div className={`detail-media-col ${fullscreen ? 'fullscreen' : ''}`}>
-
             <motion.img
               layoutId={`cover-${game.id}`}
               src={game.coverUrl}
@@ -202,9 +148,6 @@ export const GameDetail = ({ game, onClose }) => {
               transition={{ duration: 0.5 }}
             />
 
-            {/* Gradiente rimosso */}
-
-            {/* Pulsante fullscreen */}
             <button
               className="detail-fullscreen-btn"
               onClick={() => setFullscreen(f => !f)}
@@ -212,23 +155,14 @@ export const GameDetail = ({ game, onClose }) => {
             >
               {fullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
             </button>
-
           </div>
 
-          {/* ══ COLONNA TESTO ════════════════════════════════════════════════
-              position: absolute, sovrapposta da destra.
-              In fullscreen: translateX(100%) la spinge fuori dal modal.
-              Puro compositor thread → zero repaint, zero reflow.
-          ════════════════════════════════════════════════════════════════ */}
           <motion.div
             className="detail-info-col custom-scrollbar"
-            animate={{
-              x: fullscreen ? '100%' : '0%',
-            }}
+            animate={{ x: fullscreen ? '100%' : '0%' }}
             transition={SPRING}
           >
             <div className="detail-info-inner">
-
               <div className="detail-header">
                 <div className="detail-logo-box">
                   {game.logoUrl ? (
@@ -265,19 +199,13 @@ export const GameDetail = ({ game, onClose }) => {
 
               <div className="detail-cta-container">
                 {game.steamUrl ? (
-                  <a
-                    href={game.steamUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="detail-cta"
-                  >
+                  <a href={game.steamUrl} target="_blank" rel="noopener noreferrer" className="detail-cta">
                     Gioca Ora
                   </a>
                 ) : (
                   <button className="detail-cta">Gioca Ora</button>
                 )}
               </div>
-
             </div>
           </motion.div>
 
