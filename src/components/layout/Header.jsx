@@ -1,12 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { LayoutGrid, Maximize } from 'lucide-react';
+import logoImg from '../../assets/logo.png';
 
 export const Header = ({ viewMode, setViewMode }) => {
   return (
     <header className="header">
       <h1 className="logo">
-        <span className="logo-badge">G</span>
+        <div className="logo-box">
+          <img src={logoImg} alt="GameHub Logo" className="logo-img" />
+        </div>
         GameHub
       </h1>
 

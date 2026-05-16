@@ -142,5 +142,30 @@
     "year": "2018",
     "tags": ["Tower Defense"],
     "steamUrl": "https://store.steampowered.com/app/960090/Bloons_TD_6/"
+  },
+	{
+    "id": "game-013",
+    "title": "Fallout 76",
+    "coverUrl": "/assets/covers/fallout_76.webp",
+    "logoUrl": "/assets/logo/fallout_76.webp",
+    "videoUrl": "/assets/videos/fallout_76.mp4",
+    "description": "Un universo post-nucleare immenso, la natura selvaggia della Virginia Occidentale e la promessa di un nuovo inizio.\nBenvenuti in Fallout 76, il capitolo multiplayer che ha trasformato la saga per sempre, aprendo le porte del Vault 76 ai sopravvissuti del Vault Dweller.\n\nEsplora le rovine radioattive, costruisci avamposti, partecipa a missioni epiche e combatti creaturemutate che infestano una terra un tempo rigogliosa.\nCon una libertà di scelta senza precedenti, ogni avventura è unica.\nRiuscirai a ricostruire la civiltà o diventerai semplicemente un altro fantasma del West Virginia?",
+    "rating": "8/10",
+    "year": "2018",
+    "tags": ["RPG", "MMO", "Post-apocalyptic", "Open World"],
+    "steamUrl": "https://store.steampowered.com/app/1151340/Fallout_76/"
+  },
+	{
+    "id": "game-014",
+    "title": "Diablo 3",
+    "coverUrl": "/assets/covers/diablo_3.webp",
+    "logoUrl": "/assets/logo/diablo_3.webp",
+    "videoUrl": "/assets/videos/diablo_3.mp4",
+    "description": "Diablo III segna l’inizio del culmine della serie. Maledetto da creature celesti e demoniache, il mondo di Sanctuarium ha bisogno di un eroe, qualcuno che affronti il male prima che possa consumare il mondo.\nScegli la tua classe, forgia il tuo destino e unisciti alla lotta per l'anima di Sanctuary.\n\nInfinite combinazioni di personaggi e poteri, loot leggendario e rigiocabilità infinita ti aspettano, con i tuoi compagni dai vita a vere e proprie epiche battaglie.",
+    "rating": "8/10",
+    "year": "2012",
+    "tags": ["RPG", "MMO", "Post-apocalyptic", "Open World"],
+    "steamUrl": "https://diablo3.blizzard.com/it-it/"
   }
+	
 ]
