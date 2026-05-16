@@ -44,7 +44,8 @@
     "description": "Supreme Commander ha rivoluzionato per sempre i giochi di strategia in tempo reale.\n\nImpersonifica il Commander che preferisci: edifica la tua base, ottimizza l'economia e sviluppa tecnologie avanzate per sbloccare unità e strutture devastanti.\nOgnuna delle 4 fazioni offre specializzazioni uniche, garantendo un'infinita varietà di tattiche e combinazioni sul campo.\n\nLa passione degli utenti ha dato vita a FAF - Forged Alliance Forever, una piattaforma solida che con migliaia di aggiornamenti costanti rende questo capolavoro incredibilmente moderno e attuale.\nSupreme Commander rappresenta il perfetto equilibrio tra scontri di massa e controllo strategico: non esistono unità deboli, sta a te sfruttarle al massimo.\n\nE ricorda... GROSSO È PIÙ BELLO!",
     "rating": "10/10",
     "year": "2007",
-    "tags": ["RTS", "Technology"]
+    "tags": ["RTS", "Technology"],
+    "steamUrl": "https://store.steampowered.com/app/9420/Supreme_Commander_Forged_Alliance/"
   },
   {
     "id": "game-005",
@@ -55,7 +56,8 @@
     "description": "Factorio ha ridefinito per sempre il genere dei giochi di gestione e automazione industriale.\nInizia raccogliendo risorse a mano e trasforma un pianeta vergine in una fabbrica automatizzata colossale, ottimizzando chilometri di nastri trasportatori e treni logistici.\n\nIl supporto delle mod è immenso, ridefinendo l'esperienza e rendendo ogni singolo processo produttivo ancora più profondo e interessante.\n\nAffronta i pericoli della fauna aliena locale e progetta difese impenetrabili: una sfida monumentale già così!\nNon dimenticare di unirti alla modalità multiplayer per coordinare complessi industriali immensi insieme ai tuoi amici.\n\nFactorio rappresenta il trionfo della logica e dell'efficienza, dove l'unico vero limite è la tua immaginazione geometrica.",
     "rating": "10/10",
     "year": "2016",
-    "tags": ["Factory", "Automation", "Logistics"]
+    "tags": ["Factory", "Automation", "Logistics"],
+    "steamUrl": "https://store.steampowered.com/app/427520/Factorio/"
   },
   {
     "id": "game-006",
@@ -66,7 +68,8 @@
     "description": "This War of Mine non è un intrattenimento, è un’esperienza emotiva e psicologica che ribalta completamente la prospettiva di un conflitto.\n\nStai giocando a un simulatore di disperazione: non controlli soldati, ma persone comuni spezzate dalla fame, dal freddo e dal terrore di un assalto.\nDi giorno ripari il rifugio e curi i malati, di notte rovisti tra le macerie pregando di non incontrare sciacalli o militari spietati.\nOgni tua decisione ha un prezzo: rubare le medicine a due anziani indifesi per salvare il tuo compagno significa distruggere la salute mentale del tuo gruppo e non solo.\n\nNon stai giocando per vincere o accumulare punti, stai giocando per capire quanto della tua umanità sei disposto a sacrificare pur di sopravvivere.\nIn guerra, non tutti sono soldati.",
     "rating": "9.5/10",
     "year": "2014",
-    "tags": ["Survival", "War"]
+    "tags": ["Survival", "War"],
+    "steamUrl": "https://store.steampowered.com/app/282070/This_War_of_Mine/"
   },
   {
     "id": "game-007",
@@ -77,7 +80,8 @@
     "description": "Trials Rising è un’autentica dipendenza che trasforma ogni gara in una sfida fisica e mentale.\nGuidato da un realismo esasperato, il gioco ti catapulta in un’esperienza visiva e meccanica che sfida continuamente la tua pazienza, regalandoti al tempo stesso un senso di soddisfazione impagabile.\nPreparati a cadere, sbattere, rialzarti e sfidare la gravità, perché in questo gioco, la caduta è solo parte del divertimento, mentre la perfezione è l'unica via per la gloria.",
     "rating": "8/10",
     "year": "2019",
-    "tags": ["Racing"]
+    "tags": ["Racing"],
+    "steamUrl": "https://store.steampowered.com/app/641080/Trials_Rising/"
   },
   {
     "id": "game-008",
@@ -88,50 +92,55 @@
     "description": "Minecraft ha ridefinito per sempre i videogiochi di avventura e costruzione.\n\nAttraversa biomi generati proceduralmente, raccogli risorse, costruisci rifugi e difenditi dai mostri che emergono al calar della notte.\n\nChe tu voglia esplorare caverne infinite, costruire città colossali o sfidare boss epici, Minecraft offre una libertà creativa illimitata.\n\nUn'esperienza che non smette di crescere, aggiornamento dopo aggiornamento, mod dopo mod,mantenendo vivo il sogno di milioni di giocatori in tutto il mondo.",
     "rating": "9/10",
     "year": "2011",
-    "tags": ["Open World", "Survival","Sandbox"]
+    "tags": ["Open World", "Survival","Sandbox"],
+    "steamUrl": "https://www.minecraft.net/it-it"
   },
   {
     "id": "game-009",
-    "title": "Persona 5 Royal",
-    "coverUrl": "/assets/covers/cod.webp",
-    "logoUrl": "/assets/logo/halo.webp",
-    "videoUrl": "/assets/videos/cod.mp4",
-    "description": "Indossa la maschera di Joker e unisciti ai Ladri Fantasma di Cuori per cambiare la società corrompendo le menti degli adulti malvagi.",
-    "rating": 4.9,
-    "year": "2019",
-    "tags": ["JRPG", "Turn-Based", "Anime"]
+    "title": "Rimworld",
+    "coverUrl": "/assets/covers/rimworld.webp",
+    "logoUrl": "/assets/logo/rimworld.webp",
+    "videoUrl": "/assets/videos/rimworld.mp4",
+    "description": "Rimworld è un gioco gestionale di colonia fantascientifico guidato da un simulatore di intelligenza artificiale.\nAnalizza il tuo equipaggio e l’ambiente per generare storie affascinanti di schiavitu, follia, sopravvivenza e dolore.\nGestisci le relazioni tra coloni, le loro capacità, i loro difetti e le loro aspirazioni mentre affrontate una natura spietata e gli eventi caotici che stravolgeranno per sempre le vostre vite.",
+    "rating": "8/10",
+    "year": "2018",
+    "tags": ["Colony sim", "Story generator"],
+    "steamUrl": "https://store.steampowered.com/app/294100/RimWorld/"
   },
   {
     "id": "game-010",
-    "title": "Sekiro: Shadows Die Twice",
-    "coverUrl": "/assets/covers/cod.webp",
-    "logoUrl": "/assets/logo/halo.webp",
-    "videoUrl": "/assets/videos/cod.mp4",
-    "description": "Vendicati. Riprendi il tuo onore. Uccidi con ingegno. In Sekiro vesti i panni del 'lupo con un braccio solo', un guerriero sfregiato e caduto in disgrazia.",
-    "rating": 4.8,
-    "year": "2019",
-    "tags": ["Action", "Stealth", "Ninja"]
+    "title": "Kerbal Space Program",
+    "coverUrl": "/assets/covers/kerbal_space_program.webp",
+    "logoUrl": "/assets/logo/kerbal_space_program.webp",
+    "videoUrl": "/assets/videos/kerbal_space_program.mp4",
+    "description": "Kerbal Space Program è un simulatore di volo spaziale che porta la fisica orbitale e aerodinamica nel regno della commedia e dell’esplorazione pura.\nCostruisci veicoli assurdi con centinaia di componenti, lancia missioni disperate verso lune e pianeti lontani e osserva i tuoi piccoli equipaggi verdi (i Kerbal) compiere imprese eroiche... o schiantarsi in modo spettacolare.\nOgni tentativo fallito è un’opportunità di apprendimento, ogni orbita perfetta una vittoria monumentale.",
+    "rating": "9/10",
+    "year": "2015",
+    "tags": ["Space", "Simulation", "Physics"],
+    "steamUrl": "https://store.steampowered.com/app/220200/Kerbal_Space_Program/"
   },
   {
     "id": "game-011",
-    "title": "Celeste",
-    "coverUrl": "/assets/covers/cod.webp",
-    "logoUrl": "/assets/logo/halo.webp",
-    "videoUrl": "/assets/videos/cod.mp4",
-    "description": "Aiuta Madeline a sopravvivere ai suoi demoni interiori nel suo viaggio verso la cima del Monte Celeste in questo platform affilato.",
-    "rating": 4.8,
-    "year": "2018",
-    "tags": ["Platform", "Indie", "Story Rich"]
+    "title": "War Thunder",
+    "coverUrl": "/assets/covers/war_thunder.webp",
+    "logoUrl": "/assets/logo/war_thunder.webp",
+    "videoUrl": "/assets/videos/war_thunder.mp4",
+    "description": "War Thunder è uno sparatutto di carri armati multiplayer free-to-play che ti permette di combattere battaglie realistiche con veicoli della Seconda Guerra Mondiale e della Guerra Fredda.\n\nCombatti insieme ai tuoi amici in battaglie contro giocatori di tutto il mondo.",
+    "rating": "8/10",
+    "year": "2012",
+    "tags": ["WW2", "MMO", "Vehicles"],
+    "steamUrl": "https://store.steampowered.com/app/236390/War_Thunder/"
   },
   {
     "id": "game-012",
-    "title": "Death Stranding",
-    "coverUrl": "/assets/covers/cod.webp",
-    "logoUrl": "/assets/logo/halo.webp",
-    "videoUrl": "/assets/videos/cod.mp4",
-    "description": "Affronta un mondo completamente trasformato dal Death Stranding. Porta i resti frammentati del nostro futuro per ricollegare un mondo distrutto.",
-    "rating": 4.4,
-    "year": "2019",
-    "tags": ["Action", "Sci-Fi", "Walking Simulator"]
+    "title": "Bloons TD 6",
+    "coverUrl": "/assets/covers/bloons_td_6.webp",
+    "logoUrl": "/assets/logo/bloons_td_6.webp",
+    "videoUrl": "/assets/videos/bloons_td_6.mp4",
+    "description": "Bloons TD 6 è uno dei migliori giochi di difesa di torre mai realizzati.\nPosiziona strategicamente i tuoi scimpanzé ninja, cecchini e maghi per far scoppiare ogni palloncino che si presenta sulla tua strada. Con centinaia di livelli, modalità e aggiornamenti, non ti annoierai mai!",
+    "rating": "7/10",
+    "year": "2018",
+    "tags": ["Tower Defense"],
+    "steamUrl": "https://store.steampowered.com/app/960090/Bloons_TD_6/"
   }
 ]
